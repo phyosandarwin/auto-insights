@@ -11375,3 +11375,11 @@ https://github.com/ydataai/ydata-profiling/issues
 (include the error message: 'Function <code object pandas_auto_compute at 0x00000248D5E5A550, file "C:\Users\Phyo Sandar Win\AppData\Roaming\Python\Python311\site-packages\ydata_profiling\model\pandas\correlations_pandas.py", line 164>')
   warnings.warn(
 
+2024-07-04 15:17:16,378:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-07-04 15:17:16,378:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-07-04 15:17:16,378:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-07-04 15:17:16,378:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.

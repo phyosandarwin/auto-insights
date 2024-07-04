@@ -7,28 +7,47 @@ from helpers.classifn_helpers import *
 from streamlit_pandas_profiling import st_profile_report
 
 st.set_page_config(page_title="AutoClassRegInsights", layout='wide', page_icon="⚙️", initial_sidebar_state='expanded')
+
 st.logo("assets/logo.png")
 def clear_files():
     pickle_files = [file for file in os.listdir('.') if file.endswith('.pkl')]
     for file_name in pickle_files:
         os.remove(file_name)
     if not any(file.endswith('.pkl') for file in os.listdir('.')):
-        st.toast("Removed all models.", icon="✅")
+        st.toast(":green[Removed all models!]", icon="✅")
     else:
-        st.toast("Error removing model files.", icon="🚨")
+        st.toast(":red[Error removing model files]", icon="🚨")
 
-
+st.markdown(
+    """
+    <style>
+        section[data-testid="stSidebar"] {
+            width: 350px !important; # Set the width to your desired value
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 ### STREAMLIT UI/ VIEW ###
-
 with st.sidebar:
     st.title("AutoInsights")
     st.info("An AutoML platform to faciliate your classification and regression tasks.")
-    task_choice = st.radio("Choose your task:", options=["Regression", "Classification"], horizontal=True)
-    restart_button = st.button("Restart Tasks 🔄", use_container_width=True, type="primary")
-    if restart_button:
-        clear_files()
-    st.write("Created by Phyo 🥰")
-    st.markdown("Check out this project on Github")
+    with st.container(border=True):
+        st.subheader("Get started here!")
+        task_choice = st.radio("Choose your task:", options=["Regression", "Classification"], horizontal=True)
+        restart_button = st.button("Restart Tasks 🔄", use_container_width=True, type="primary")
+        if restart_button:
+            clear_files()
+    
+    with st.expander("More:", icon="👇"):
+        st.markdown("**Check out project on [Github](https://github.com/phyosandarwin/auto-insights)** 🤓")
+        st.markdown(
+                """
+                [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?style=flat&logo=github)](https://github.com/phyosandarwin)
+                [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat&logo=linkedin)](https://linkedin.com/in/phyosandarwin)
+                """
+    )
+
 
 st.markdown(f'''<span style="font-size: 20px;">Getting started on your :blue-background[**{task_choice}**] Task!</span>''', unsafe_allow_html=True)
 
