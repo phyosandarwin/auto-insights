@@ -41,4 +41,4 @@ def train_class_model(df, target_var, metric):
     st.dataframe(predictions, use_container_width=True)
 
     # Return the tuned model
-    return tuned_class_model
+    save_model(tuned_class_model, 'best_class_model')

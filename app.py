@@ -72,8 +72,7 @@ if task_choice == "Regression":
                 target = st.selectbox("Choose target column", reg_df.columns)
                     
                 if st.button("Run Modelling"):
-                    best_model = train_reg_model(reg_df, reg_df[target], metric)
-                    save_model(best_model, 'best_reg_model')
+                    train_reg_model(reg_df, reg_df[target], metric)
 
                     if os.path.exists('best_reg_model.pkl'):
                         with open('best_reg_model.pkl', 'rb') as f:
@@ -107,8 +106,7 @@ elif task_choice == "Classification":
                         st.write("Applied Encoding: ", encoding_map)
                 
                 if st.button("Run Modelling"):
-                    best_model = train_class_model(class_df, class_df[target], metric)
-                    save_model(best_model, 'best_class_model')
+                    train_class_model(class_df, class_df[target], metric)
 
                     if os.path.exists('best_class_model.pkl'):
                         with open('best_class_model.pkl', 'rb') as f:

@@ -27,13 +27,13 @@ def train_reg_model(df, target_var, metric):
     st.dataframe(tune_trials_df, use_container_width=True)
 
     st.subheader("Visualise Performance of Tuned model")
-    plot_model(tuned_reg_model, plot ='residuals', display_format='streamlit', scale=0.75)
-    plot_model(tuned_reg_model, plot = 'error', display_format='streamlit', scale=0.75)
-    plot_model(tuned_reg_model, plot="feature", display_format='streamlit', scale=0.75)
+    plot_model(tuned_reg_model, plot ='residuals', display_format='streamlit')
+    plot_model(tuned_reg_model, plot = 'error', display_format='streamlit')
+    plot_model(tuned_reg_model, plot="feature", display_format='streamlit')
 
     st.subheader("Predictions on holdout set", divider='gray')
     predictions = predict_model(tuned_reg_model)
     st.dataframe(predictions, use_container_width=True)
 
     # Return the tuned model
-    return tuned_reg_model
+    save_model(tuned_reg_model, 'best_reg_model')
