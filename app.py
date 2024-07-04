@@ -94,7 +94,18 @@ elif task_choice == "Classification":
                 st.subheader("Step 3: Model Training and Evaluation 🚀", divider='blue')
                 metric = st.selectbox("Choose evaluation metric for classification:", ["Accuracy", "AUC", "F1"])
                 target = st.selectbox("Choose the target column", class_df.columns)
-                    
+                
+                # handling target encoding
+                if class_df[target].dtype not in ['int64', 'float64', 'bool']:
+                    encoding_map = {}
+                    for value in class_df[target].unique():
+                        if not isinstance(value, (int, float, bool)):
+                            key = value.item() if hasattr(value, 'item') else value
+                            encoding_map[key] = st.number_input(f"Encode {key} as", value=0, step=1)
+                    if encoding_map:
+                        class_df[target] = class_df[target].map(encoding_map)
+                        st.write("Applied Encoding: ", encoding_map)
+                
                 if st.button("Run Modelling"):
                     best_model = train_class_model(class_df, class_df[target], metric)
                     save_model(best_model, 'best_class_model')
