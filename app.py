@@ -6,7 +6,7 @@ from helpers.reg_helpers import *
 from helpers.classifn_helpers import *
 from streamlit_pandas_profiling import st_profile_report
 
-st.set_page_config(page_title="AutoClassRegInsights", layout='wide', page_icon="⚙️", initial_sidebar_state='expanded')
+st.set_page_config(page_title="AutoInsights", layout='wide', page_icon="⚙️", initial_sidebar_state='expanded')
 
 st.logo("assets/logo.png")
 def clear_files():
