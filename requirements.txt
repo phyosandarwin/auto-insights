@@ -3,4 +3,3 @@ pycaret==3.3.2
 streamlit==1.36.0
 streamlit-ydata-profiling==0.2.1
 ydata_profiling==4.8.3
-phik==0.12.4
