@@ -44,6 +44,7 @@ with st.sidebar:
         st.markdown("**Check out project on [Github](https://github.com/phyosandarwin/auto-insights)** 🤓")
         st.markdown(
                 """
+                **Connect with me via:**
                 [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?style=flat&logo=github)](https://github.com/phyosandarwin)
                 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat&logo=linkedin)](https://linkedin.com/in/phyosandarwin)
                 """
