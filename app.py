@@ -64,7 +64,7 @@ if task_choice == "Regression":
             st.dataframe(reg_df.head(), use_container_width=True)
             if not reg_df.empty:
                 st.subheader("Step 2: View Data Profile 🔎", divider='blue')
-                profile_df = ProfileReport(reg_df)
+                profile_df = ProfileReport(reg_df, minimal=True, explorative=True)
                 st_profile_report(profile_df)
                 
                 st.subheader("Step 3: Model Training and Evaluation 🚀", divider='blue')
@@ -88,7 +88,7 @@ elif task_choice == "Classification":
             st.dataframe(class_df.head(), use_container_width=True)
             if not class_df.empty:
                 st.subheader("Step 2: View Data Profile 🔎", divider='blue')
-                profile_df = ProfileReport(class_df)
+                profile_df = ProfileReport(class_df, minimal=True, explorative=True)
                 st_profile_report(profile_df)
                 
                 st.subheader("Step 3: Model Training and Evaluation 🚀", divider='blue')
