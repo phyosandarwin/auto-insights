@@ -1,0 +1,84 @@
+import os
+import pandas as pd
+import streamlit as st
+from ydata_profiling import ProfileReport
+from helpers.reg_helpers import *
+from helpers.classifn_helpers import *
+from streamlit_pandas_profiling import st_profile_report
+
+st.set_page_config(page_title="AutoClassRegInsights", layout='wide', page_icon="⚙️", initial_sidebar_state='expanded')
+st.logo("assets/logo.png")
+def clear_files():
+    pickle_files = [file for file in os.listdir('.') if file.endswith('.pkl')]
+    for file_name in pickle_files:
+        os.remove(file_name)
+    if not any(file.endswith('.pkl') for file in os.listdir('.')):
+        st.toast("Removed all models.", icon="✅")
+    else:
+        st.toast("Error removing model files.", icon="🚨")
+
+
+### STREAMLIT UI/ VIEW ###
+
+with st.sidebar:
+    st.title("AutoInsights")
+    st.info("An AutoML platform to faciliate your classification and regression tasks.")
+    task_choice = st.radio("Choose your task:", options=["Regression", "Classification"], horizontal=True)
+    restart_button = st.button("Restart Tasks 🔄", use_container_width=True, type="primary")
+    if restart_button:
+        clear_files()
+    st.write("Created by Phyo 🥰")
+    st.markdown("Check out this project on Github")
+
+st.markdown(f'''<span style="font-size: 20px;">Getting started on your :blue-background[**{task_choice}**] Task!</span>''', unsafe_allow_html=True)
+
+# Task specific sections
+if task_choice == "Regression":
+    with st.container(border=True):
+        st.subheader("Step 1: Upload dataset 📤", divider='blue')
+        file = st.file_uploader(label="Upload regression dataset:", type="csv")
+        if file:
+            reg_df = pd.read_csv(file, index_col=None)
+            st.dataframe(reg_df.head(), use_container_width=True)
+            if not reg_df.empty:
+                st.subheader("Step 2: View Data Profile 🔎", divider='blue')
+                profile_df = ProfileReport(reg_df)
+                st_profile_report(profile_df)
+                
+                st.subheader("Step 3: Model Training and Evaluation 🚀", divider='blue')
+                metric = st.selectbox("Choose evaluation metric for regression:", ["R2", "MAE", "MSE", "RMSE", "MAPE"])
+                target = st.selectbox("Choose target column", reg_df.columns)
+                    
+                if st.button("Run Modelling"):
+                    best_model = train_reg_model(reg_df, reg_df[target], metric)
+                    save_model(best_model, 'best_reg_model')
+
+                    if os.path.exists('best_reg_model.pkl'):
+                        with open('best_reg_model.pkl', 'rb') as f:
+                            st.download_button('📥Download Model', f, file_name='best_reg_model.pkl')
+
+elif task_choice == "Classification":
+    with st.container(border=True):
+        st.subheader("Step 1: Upload dataset 📤", divider='blue')
+        file = st.file_uploader(label="Upload tabular classification dataset:", type="csv")
+        if file:
+            class_df = pd.read_csv(file, index_col=None)
+            st.dataframe(class_df.head(), use_container_width=True)
+            if not class_df.empty:
+                st.subheader("Step 2: View Data Profile 🔎", divider='blue')
+                profile_df = ProfileReport(class_df)
+                st_profile_report(profile_df)
+                
+                st.subheader("Step 3: Model Training and Evaluation 🚀", divider='blue')
+                metric = st.selectbox("Choose evaluation metric for classification:", ["Accuracy", "AUC", "F1"])
+                target = st.selectbox("Choose the target column", class_df.columns)
+                    
+                if st.button("Run Modelling"):
+                    best_model = train_class_model(class_df, class_df[target], metric)
+                    save_model(best_model, 'best_class_model')
+
+                    if os.path.exists('best_class_model.pkl'):
+                        with open('best_class_model.pkl', 'rb') as f:
+                            st.download_button('📥Download Model', f, file_name='best_class_model.pkl')
+    
+    
