@@ -6,7 +6,7 @@ def train_class_model(df, target_var, metric):
     # Set up PyCaret environment
     st.subheader("Preprocessing data:")
     setup(df, target=target_var, normalize=True, normalize_method='robust', numeric_imputation='median',
-           fix_imbalance=True, feature_selection=True, session_id=111, fold=5, use_gpu=True)
+           fix_imbalance=True, session_id=111, fold=3)
     
     setup_df = pull()
     st.dataframe(setup_df, use_container_width=True)
@@ -23,8 +23,7 @@ def train_class_model(df, target_var, metric):
 
     st.subheader("Hyperparameter tuning")
     with st.spinner("Tuning hyperparameters, wait for it..."):
-        tuned_class_model = tune_model(best_class_model, optimize=metric, 
-                                       search_library='scikit-optimize', search_algorithm='bayesian')
+        tuned_class_model = tune_model(best_class_model, optimize=metric)
     
     st.toast("Tuned all the hyperparameters!", icon="🥳")
     tune_trials_df = pull()

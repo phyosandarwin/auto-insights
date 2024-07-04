@@ -5,8 +5,7 @@ def train_reg_model(df, target_var, metric):
     st.subheader("Preprocessing data:")
     
     setup(df, target=target_var, normalize=True, normalize_method='robust', 
-          numeric_imputation='median', feature_selection=True, session_id=100, 
-          fold=5, feature_selection_method='univariate', use_gpu=True)
+          numeric_imputation='median', session_id=100, fold=3)
     setup_df = pull()
     st.dataframe(setup_df, use_container_width=True)
     
@@ -21,8 +20,7 @@ def train_reg_model(df, target_var, metric):
 
     st.subheader("Hyperparameter tuning")
     with st.spinner("Tuning hyperparameters, wait for it..."):
-        tuned_reg_model = tune_model(best_reg_model, optimize=metric, 
-                                     search_library='scikit-optimize', search_algorithm='bayesian')
+        tuned_reg_model = tune_model(best_reg_model, optimize=metric)
     
     st.toast("Tuned all the hyperparameters!", icon="🥳")
     tune_trials_df = pull()
