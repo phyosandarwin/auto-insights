@@ -6,7 +6,7 @@ def train_reg_model(df, target_var, metric):
     
     setup(df, target=target_var, normalize=True, normalize_method='robust', 
           numeric_imputation='median', feature_selection=True, session_id=100, 
-          fold=5, feature_selection_method='univariate')
+          fold=5, feature_selection_method='univariate', use_gpu=True)
     setup_df = pull()
     st.dataframe(setup_df, use_container_width=True)
     
