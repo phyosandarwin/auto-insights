@@ -1,6 +1,6 @@
 # AutoInsights
 
-AutoInsights is an AutoML platform designed to facilitate classification and regression tasks. It simplifies and automates the process of machine learning model development, allowing users to focus on deriving insights from their data without getting bogged down by technical complexities.
+AutoInsights is an **AutoML** platform designed to facilitate classification and regression tasks. It simplifies and automates the process of machine learning model development, allowing users to focus on deriving insights from their data without getting bogged down by technical complexities.
 
 ## Features and Functionality
 
@@ -38,4 +38,5 @@ To get started with AutoInsights, follow these steps:
     ```bash
     streamlit run app.py
 
-
+# View Demo Video
+[Video Link](https://youtu.be/TXbRi4xD70Y)
